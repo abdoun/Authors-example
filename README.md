@@ -1,6 +1,6 @@
 # Authors-example
 
-Rest Api by using Lumen 7 from Laravel
+Rest Api by using Laravel lumen 7 under php 7.2
 - authentication by email and password
 - crud function for authors
 
