@@ -10,12 +10,23 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
+
+Route::options('/{any:.*}', [
+    'middleware' => ['CorsMiddleware'],
+    function (){ 
+        return response(['status' => 'success']); 
+    }
+  ]
+ );
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api'], function () use ($router) {
+$router->group(['prefix' => 'api','middleware' => 'CorsMiddleware'], function () use ($router) {
     $router->get('login',['uses' => 'UserController@authenticate']);
 
     $router->get('authors',  ['uses' => 'AuthorController@showAllAuthors']);
